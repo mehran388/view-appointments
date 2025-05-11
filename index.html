@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>View Appointments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #eef2f7; }
+    .container { max-width: 700px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    .card {
+      background: #f9fcff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Company Appointments</h2>
+    <div id="list"></div>
+  </div>
+
+  <script>
+    const list = JSON.parse(localStorage.getItem("appointments") || "[]");
+    const container = document.getElementById("list");
+    if (list.length === 0) {
+      container.innerHTML = "<p>No appointments found.</p>";
+    } else {
+      list.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <strong>${entry.company}</strong><br>
+          Contact: ${entry.contact}<br>
+          Email: ${entry.email}<br>
+          Purpose: ${entry.purpose}<br>
+          Time: ${entry.time}
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
